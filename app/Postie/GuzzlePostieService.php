@@ -30,7 +30,7 @@ class GuzzlePostieService implements PostieService
         );
     }
 
-    public function getFile($id): ?File
+    public function getFile(string $id): ?File
     {
         try {
             $response = $this->client->request('GET', "files/{$id}");
@@ -47,7 +47,7 @@ class GuzzlePostieService implements PostieService
         }
     }
 
-    public function getFileType($id): ?FileType
+    public function getFileType(int $id): ?FileType
     {
         try {
             $response = $this->client->request('GET', "filetypes/{$id}");

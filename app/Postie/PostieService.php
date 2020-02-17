@@ -13,14 +13,14 @@ interface PostieService
      * @param string $id ID of the file that should be retrieved.
      * @return File Requested file or `null` if a file with the specified ID does not exist.
      */
-    public function getFile($id): ?File;
+    public function getFile(string $id): ?File;
 
     /**
      * Returns the file type identified by the specified ID or [null] if one does not exist.
      * 
-     * @param mixed $id ID of the file type that should be retrieved.
+     * @param int $id ID of the file type that should be retrieved.
      * 
      * @return FileType Requested file type or `null` if a file type with the specified ID does not exist.
      */
-    public function getFileType($id): ?FileType;
+    public function getFileType(int $id): ?FileType;
 }
