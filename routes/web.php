@@ -15,4 +15,5 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/files/{id}', 'Files\FileController@get');
+Route::get('/{id}', 'Files\FileController@get');
+Route::get('/raw/{id}', 'Files\RawController@get');
