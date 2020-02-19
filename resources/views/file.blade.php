@@ -45,7 +45,7 @@
             <code>{{ $file->name }} <span class="badge badge-dark">{{ $fileType->name }}</span></code>
           </div>
           <div class="col-sm text-right col">
-            <button type="button" class="btn btn-dark btn-sm but">Raw</button>
+            <a href="{{ URL::to('raw/' . $id) }}" role="button" class="btn btn-dark btn-sm but">Raw</a>
             <button type="button" class="btn btn-dark btn-sm but">Download</button>
           </div>
       </div>
