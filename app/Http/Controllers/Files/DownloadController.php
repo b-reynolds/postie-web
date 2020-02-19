@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Files;
 use App\Http\Controllers\Controller;
 use App\Postie\PostieService;
 
-class FileController extends Controller
+class DownloadController extends Controller
 {
     private $postie;
 
@@ -21,15 +21,10 @@ class FileController extends Controller
             return view('file_not_found');
         }
 
-        $fileType = $this->postie->getFileType($file->fileTypeId);
-        if ($fileType == null) {
-            return view('file_not_found');
-        }
-
-        return view('file', [
-            'id' => $id,
-            'file' => $file,
-            'fileType' => $fileType
+        $response = response($file->contents, 200, [
+            'Content-Disposition' => 'attachment; filename="' . $file->name . '.txt"',
         ]);
+
+        return $response;
     }
 }

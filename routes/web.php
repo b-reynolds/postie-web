@@ -17,3 +17,4 @@ Route::get('/', function () {
 
 Route::get('/{id}', 'Files\FileController@get');
 Route::get('/raw/{id}', 'Files\RawController@get');
+Route::get('/download/{id}', 'Files\DownloadController@get');
