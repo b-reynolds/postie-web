@@ -46,7 +46,7 @@
           </div>
           <div class="col-sm text-right col">
             <a href="{{ URL::to('raw/' . $id) }}" role="button" class="btn btn-dark btn-sm but">Raw</a>
-            <button type="button" class="btn btn-dark btn-sm but">Download</button>
+            <a href="{{ URL::to('download/' . $id) }}" role="button" class="btn btn-dark btn-sm but">Download</a>
           </div>
       </div>
       <div class="row justify-content-end flex-grow-1 subnav">
