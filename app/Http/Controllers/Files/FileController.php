@@ -32,16 +32,4 @@ class FileController extends Controller
             'fileType' => $fileType
         ]);
     }
-
-    public function getRaw($id)
-    {
-        $file = $this->postie->getFile($id);
-        if ($file == null) {
-            return view('file_not_found');
-        }
-
-        $contents = view('raw')->with('file', $file);
-        return response($contents)->header('Content-Type', 'text/plain');
-        // return nl2br(e($file->contents));
-    }
 }
