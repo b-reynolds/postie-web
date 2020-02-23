@@ -49,21 +49,20 @@ class CreateController extends Controller
         }
 
         $fileTypeId = $request->input('fileType');
-        $expiryOptionId = $request->input('expires');
-        $contents = $request->input('contents');
-
         $fileType = $this->postie->getFileType($fileTypeId);
         if ($fileType == null) {
             return redirect()->action('Files\CreateController@get');
         }
 
+        $expiryOptionId = $request->input('expires');
         $expiryOption = $this->expiryOptions[$expiryOptionId] ?? null;
         if ($expiryOption == null) {
             return redirect()->action('Files\CreateController@get');
         }
 
-        $fileId = $this->postie->createFile($name, $fileType, $expiryOption, $contents);
+        $contents = $request->input('contents');
 
+        $fileId = $this->postie->createFile($name, $fileType, $expiryOption, $contents);
         return redirect()->action('Files\FileController@get', ['id' => $fileId]);
     }
 }
