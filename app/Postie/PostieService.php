@@ -2,6 +2,8 @@
 
 namespace App\Postie;
 
+use App\Postie\FileType;
+
 /**
  * Able to make exchanges with the Postie API.
  */
@@ -23,4 +25,14 @@ interface PostieService
      * @return FileType Requested file type or `null` if a file type with the specified ID does not exist.
      */
     public function getFileType(int $id): ?FileType;
+
+    /**
+     * Returns an array containing available file types.
+     */
+    public function getFileTypes(): array;
+
+    /**
+     * Creates a new file and returns its ID.
+     */
+    public function createFile(string $name, FileType $fileType, ExpiryOption $expiryOption, string $contents): string;
 }
