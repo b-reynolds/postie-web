@@ -39,7 +39,7 @@
         </div> --}}
         <div class="row justify-content-end subnav">
           <div class="col-sm align-self-center text-md-left col">
-          <img src="{{ asset('images/logo.png') }}" style="max-width: 48px"/>
+          <a href="{{ URL::to('/') }}"><img src="{{ asset('images/logo.png') }}" style="max-width: 48px"/></a>
           </div>
           <div class="col-sm align-self-center text-md-center col">
             <code>{{ $file->name }} <span class="badge badge-dark">{{ $fileType->name }}</span></code>
