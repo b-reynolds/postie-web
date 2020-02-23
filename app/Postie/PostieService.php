@@ -18,6 +18,18 @@ interface PostieService
     public function getFile(string $id): ?File;
 
     /**
+     * Creates a new file and returns its ID.
+     */
+    public function createFile(string $name, FileType $fileType, ExpiryOption $expiryOption, string $contents): string;
+
+    /**
+     * Creates a new file type and returns its ID.
+     * 
+     * @param string $name Name of the file type.
+     */
+    public function createFileType(string $name): string;
+
+    /**
      * Returns the file type identified by the specified ID or [null] if one does not exist.
      * 
      * @param int $id ID of the file type that should be retrieved.
@@ -30,9 +42,4 @@ interface PostieService
      * Returns an array containing available file types.
      */
     public function getFileTypes(): array;
-
-    /**
-     * Creates a new file and returns its ID.
-     */
-    public function createFile(string $name, FileType $fileType, ExpiryOption $expiryOption, string $contents): string;
 }
