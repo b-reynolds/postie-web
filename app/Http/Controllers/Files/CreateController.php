@@ -11,6 +11,8 @@ class CreateController extends Controller
 {
     private $postie;
     private $expiryOptions;
+    private $maxNameLength;
+    private $maxContentsLength;
 
     public function __construct(PostieService $postie)
     {
@@ -22,6 +24,8 @@ class CreateController extends Controller
             4 => new ExpiryOption("1 Month", 2629746),
             5 => new ExpiryOption("1 Year", 31556952)
         ];
+        $this->maxNameLength = env('POSTIE_FILE_NAME_LENGTH_MAX');
+        $this->maxContentsLength = env('POSTIE_CONTENTS_LENGTH_MAX');
     }
 
     public function get()
@@ -39,23 +43,36 @@ class CreateController extends Controller
 
     public function post(Request $request)
     {
-        $name = $request->input('name');
-        $fileTypeId = $request->input('fileType');
-        $expiryOptionId = $request->input('expires');
-        $contents = $request->input('contents');
+        $name = trim($request->input('name'));
+        if (strlen($name) == 0) {
+            return redirect()->action('Files\CreateController@get');
+        } else if (strlen($name) > $this->maxNameLength) {
+            $name = substr($name, 0, $this->maxNameLength);
+        }
 
+        $fileTypeId = $request->input('fileType');
         $fileType = $this->postie->getFileType($fileTypeId);
         if ($fileType == null) {
             return redirect()->action('Files\CreateController@get');
         }
 
+        $expiryOptionId = $request->input('expires');
         $expiryOption = $this->expiryOptions[$expiryOptionId] ?? null;
         if ($expiryOption == null) {
             return redirect()->action('Files\CreateController@get');
         }
 
+        $contents = $request->input('contents');
+        $contentsLength = strlen($contents);
+        if ($contentsLength == 0) {
+            return redirect()->action('Files\CreateController@get');
+        } else if ($contentsLength > $this->maxContentsLength) {
+            error_log('subbing to ' . $this->maxContentsLength);
+            $contents = substr($contents, 0, $this->maxContentsLength);
+        }
+
         $fileId = $this->postie->createFile($name, $fileType, $expiryOption, $contents);
 
-        return redirect()->action('Files\FileController@get', ['id' => $fileId ]);
+        return redirect()->action('Files\FileController@get', ['id' => $fileId]);
     }
 }
