@@ -82,7 +82,7 @@
 
         <div class="form-group">
             <label for="contents">Contents</label>
-            <textarea class="form-control field-dark" rows="10" name="contents" required></textarea>
+        <textarea class="form-control field-dark" rows="10" name="contents" maxlength="{{ env('POSTIE_CONTENTS_LENGTH_MAX') }}" required></textarea>
         </div>
 
         <button type="submit" class="btn btn-dark" style="width: 100%">Create</button>

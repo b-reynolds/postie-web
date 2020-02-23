@@ -12,6 +12,7 @@ class CreateController extends Controller
     private $postie;
     private $expiryOptions;
     private $maxNameLength;
+    private $maxContentsLength;
 
     public function __construct(PostieService $postie)
     {
@@ -24,6 +25,7 @@ class CreateController extends Controller
             5 => new ExpiryOption("1 Year", 31556952)
         ];
         $this->maxNameLength = env('POSTIE_FILE_NAME_LENGTH_MAX');
+        $this->maxContentsLength = env('POSTIE_CONTENTS_LENGTH_MAX');
     }
 
     public function get()
@@ -61,8 +63,16 @@ class CreateController extends Controller
         }
 
         $contents = $request->input('contents');
+        $contentsLength = strlen($contents);
+        if ($contentsLength == 0) {
+            return redirect()->action('Files\CreateController@get');
+        } else if ($contentsLength > $this->maxContentsLength) {
+            error_log('subbing to ' . $this->maxContentsLength);
+            $contents = substr($contents, 0, $this->maxContentsLength);
+        }
 
         $fileId = $this->postie->createFile($name, $fileType, $expiryOption, $contents);
+
         return redirect()->action('Files\FileController@get', ['id' => $fileId]);
     }
 }
