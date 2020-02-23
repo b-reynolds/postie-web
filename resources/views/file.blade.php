@@ -51,7 +51,7 @@
       </div>
       <div class="row justify-content-end flex-grow-1 subnav">
         <div class="col-sm align-self-center text-md-left col" style="padding: 0px">
-          <pre class="line-numbers" style="margin: 0px"><code class="language-{{ $fileType->name }}">{{ $file->contents }}</code></pre>
+          <pre class="line-numbers" style="margin: 0px"><code class="language-{{ $fileTypeAlias }}">{{ $file->contents }}</code></pre>
         </div>
     </div>
 </body>
