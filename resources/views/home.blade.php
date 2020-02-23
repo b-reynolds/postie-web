@@ -59,7 +59,7 @@
         @csrf <!-- {{ csrf_field() }} -->
         <div class="form-group">
             <label for="name">Name</label>
-            <input type="text" class="form-control field-dark" name="name" required>
+            <input type="text" class="form-control field-dark" name="name" maxlength="{{ env('POSTIE_FILE_NAME_LENGTH_MAX') }}" required>
         </div>
 
         <div class="form-group">
