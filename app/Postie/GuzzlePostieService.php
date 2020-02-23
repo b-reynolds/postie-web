@@ -31,6 +31,21 @@ class GuzzlePostieService implements PostieService
         );
     }
 
+    public function createFile(string $name, FileType $fileType, ExpiryOption $expiryOption, string $contents): string {
+        $response = $this->client->post('files/', [
+            RequestOptions::JSON => [
+                'name' => $name,
+                'fileTypeId' => $fileType->id,
+                'expiresAt' => (time() + $expiryOption->seconds) * 1000,
+                'contents' => $contents
+            ]
+        ]);
+
+        $header = $response->getHeader('Location');
+
+        return basename($header[array_key_first($header)], "/");
+    }
+
     public function getFile(string $id): ?File
     {
         try {
@@ -46,6 +61,18 @@ class GuzzlePostieService implements PostieService
 
             throw $exception;
         }
+    }
+
+    public function createFileType(string $name): string {
+        $response = $this->client->post('filetypes/', [
+            RequestOptions::JSON => [
+                'name' => $name,
+            ]
+        ]);
+
+        $header = $response->getHeader('Location');
+
+        return basename($header[array_key_first($header)], "/");
     }
 
     public function getFileType(int $id): ?FileType
@@ -79,19 +106,5 @@ class GuzzlePostieService implements PostieService
 
             throw $exception;
         }
-    }
-    public function createFile(string $name, FileType $fileType, ExpiryOption $expiryOption, string $contents): string {
-        $response = $this->client->post('files/', [
-            RequestOptions::JSON => [
-                'name' => $name,
-                'fileTypeId' => $fileType->id,
-                'expiresAt' => (time() + $expiryOption->seconds) * 1000,
-                'contents' => $contents
-            ]
-        ]);
-
-        $header = $response->getHeader('Location');
-
-        return basename($header[array_key_first($header)], "/");
     }
 }
