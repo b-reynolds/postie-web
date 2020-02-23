@@ -11,9 +11,8 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'Files\CreateController@get');
+Route::post('/', 'Files\CreateController@post');
 
 Route::get('/{id}', 'Files\FileController@get');
 Route::get('/raw/{id}', 'Files\RawController@get');
