@@ -65,6 +65,7 @@
         <div class="form-group">
             <label for="fileType">Type</label>
             <select class="custom-select field-dark" name="fileType" required>
+                <option value="0">None</option>
             @foreach ($fileTypes as $fileType)
                 <option value="{{ $fileType->id }}">{{ $fileType->name }}</option>
             @endforeach
