@@ -42,7 +42,7 @@
           <a href="{{ URL::to('/') }}"><img src="{{ asset('images/logo.png') }}" style="max-width: 48px"/></a>
           </div>
           <div class="col-sm align-self-center text-md-center col">
-            <code>{{ $file->name }} <span class="badge badge-dark">{{ $fileType->name }}</span></code>
+            <code>{{ $file->name }} @if($fileType != null) <span class="badge badge-dark">{{ $fileType->name }}</span> @endif</code>
           </div>
           <div class="col-sm text-right col">
             <a href="{{ URL::to('raw/' . $id) }}" role="button" class="btn btn-dark btn-sm but">Raw</a>

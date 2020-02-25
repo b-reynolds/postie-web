@@ -20,7 +20,7 @@ interface PostieService
     /**
      * Creates a new file and returns its ID.
      */
-    public function createFile(string $name, FileType $fileType, ExpiryOption $expiryOption, string $contents): string;
+    public function createFile(string $name, ?FileType $fileType, ExpiryOption $expiryOption, string $contents): string;
 
     /**
      * Creates a new file type and returns its ID.

@@ -24,16 +24,21 @@ class FileController extends Controller
             return view('file_not_found');
         }
 
-        $fileType = $this->postie->getFileType($file->fileTypeId);
-        if ($fileType == null) {
-            return view('file_not_found');
+        $fileType = null;
+        if ($file->fileTypeId !== null) {
+            $fileType = $this->postie->getFileType($file->fileTypeId);
+            if ($fileType === null) {
+                return view('file_not_found');
+            }
         }
 
         $fileTypeAlias = "";
-        foreach($this->prismJs->supportedLanguages as $language) {
-            if ($fileType->name == $language->title) {
-                $fileTypeAlias = $language->alias;
-                break;
+        if ($fileType !== null) {
+            foreach($this->prismJs->supportedLanguages as $language) {
+                if ($fileType->name == $language->title) {
+                    $fileTypeAlias = $language->alias;
+                    break;
+                }
             }
         }
 

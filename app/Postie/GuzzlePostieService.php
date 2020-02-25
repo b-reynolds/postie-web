@@ -42,12 +42,12 @@ class GuzzlePostieService implements PostieService
         ]);
     }
 
-    public function createFile(string $name, FileType $fileType, ExpiryOption $expiryOption, string $contents): string
+    public function createFile(string $name, ?FileType $fileType, ExpiryOption $expiryOption, string $contents): string
     {
         $response = $this->client->post(self::ROUTE_FILES . '/', [
             RequestOptions::JSON => [
                 self::FIELD_NAME => $name,
-                self::FIELD_FILE_TYPE_ID => $fileType->id,
+                self::FIELD_FILE_TYPE_ID => $fileType->id ?? null,
                 self::FIELD_EXPIRES_AT => (time() + $expiryOption->seconds) * 1000,
                 self::FIELD_CONTENTS => $contents
             ]
